@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tags', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
-            $table->timestamps();
+        Schema::table('article_category', function (Blueprint $table) {
+            $table->renameColumn('tag_id', 'category_id');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tags');
+        Schema::table('article_category', function (Blueprint $table) {
+            $table->renameColumn('category_id', 'tag_id');
+        });
     }
 };
